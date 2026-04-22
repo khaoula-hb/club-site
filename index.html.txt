@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="css/style.css"></head>
+<body>
+
+<nav>
+<h2>ECC</h2>
+<div>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="projects.html">Projects</a>
+<a href="events.html">Events</a>
+<a href="talents.html">Talents</a>
+<a href="contact.html">Contact</a>
+<a href="login.html">Login</a>
+</div>
+</nav>
+
+<div class="hero">
+<h1>Enter Capital Club 🚀</h1>
+<p>Innovate. Connect. Inspire.</p>
+<button class="btn">Join Us</button>
+</div>
+
+</body>
+</html>

@@ -2,33 +2,51 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Join ECC</title>
-<link rel="stylesheet" href="join.css">
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../CSS/style.css">
 </head>
 
 <body>
 
-<div class="container">
+<!-- NAVBAR -->
+<nav>
+  <h2>ECC</h2>
 
-  <h1>Join ECC 🚀</h1>
+  <ul class="nav-links">
+    <li><a href="../HTML/home.html">Home</a></li>
+    <li><a href="#">Join</a></li>
+  </ul>
+</nav>
 
-  <input type="text" id="name" placeholder="Full Name">
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
+<!-- JOIN -->
+<div class="join-container" style="margin-top:80px;">
+  <div class="join-box">
 
-  <select id="field">
-    <option value="">Choose Field</option>
-    <option>CS</option>
-    <option>Business</option>
-    <option>Design</option>
-  </select>
+    <h2>Join Enter Capital Club 🚀</h2>
 
-  <button onclick="register()">Join Now</button>
+    <form id="registerForm">
 
-  <p id="msg"></p>
+      <input type="text" id="full_name" placeholder="Full Name" required class="input">
+      <input type="email" id="email" placeholder="Email" required class="input">
+      <input type="password" id="password" placeholder="Password" required class="input">
 
+      <button type="submit" class="btn">Register</button>
+
+    </form>
+
+    <p id="message" style="margin-top:15px;"></p>
+
+  </div>
 </div>
 
-<script src="auth.js"></script>
+<script src="../JS/app.js"></script>
+
 </body>
 </html>

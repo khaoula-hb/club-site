@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard - ECC</title>
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../CSS/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">
+    <img src="../logo.png">
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="../HTML/home.html">Home</a></li>
+    <li><a href="#">Dashboard</a></li>
+  </ul>
+</nav>
+
+<!-- DASHBOARD -->
+<section class="dashboard" style="margin-top:100px;">
+
+  <h2>Admin Dashboard 👑</h2>
+
+  <!-- USERS -->
+  <h2>Users</h2>
+  <div id="usersList" class="about-cards reveal"></div>
+
+  <!-- EVENTS -->
+  <h2>Events</h2>
+  <div id="eventsList" class="events-container "></div>
+
+  <!-- ADD EVENT -->
+  <div class="card reveal" style="max-width:400px;margin:40px auto; text-align:center;">
+
+    <h2>Add Event</h2>
+
+    <input type="text" id="title" placeholder="Event Title" class="input">
+    <input type="date" id="date" class="input">
+    <input type="text" id="description" placeholder="Description" class="input">
+    <input type="text" id="location" placeholder="Location" class="input">
+
+    <button class="btn" onclick="addEvent()">Add Event</button>
+
+  </div>
+
+  <p id="message" style="text-align:center;margin-top:15px;"></p>
+
+</section>
+
+<script src="../JS/app.js"></script>
+
+</body>
+</html>

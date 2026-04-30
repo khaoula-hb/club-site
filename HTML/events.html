@@ -1,18 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ECC Events</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../CSS/style.css">
 </head>
+
 <body>
 
+<!-- NAVBAR -->
 <nav>
-<h2>ECC</h2>
+  <h2>ECC</h2>
+
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Events</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
 </nav>
 
-<h1 style="text-align:center;margin-top:30px;">Events</h1>
+<!-- EVENTS SECTION -->
+<section style="margin-top:80px;">
+  <h2>Our Events</h2>
+  
+  <!-- IMPORTANT: class لازم تكون events-container -->
+  <div class="events-container" id="events"></div>
+</section>
 
-<div class="container" id="events"></div>
+<!-- JS -->
+<script src="../JS/app.js"></script>
 
-<script src="main.js"></script>
 </body>
 </html>

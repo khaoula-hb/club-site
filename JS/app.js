@@ -1,171 +1,543 @@
-const API = "http://localhost:3000";
+// ================= REGISTER =================
 
-// EVENTS HOME
-async function loadEvents(){
-  const res = await fetch(API + "/events");
-  const data = await res.json();
+const registerForm = document.getElementById("registerForm");
 
-  const container = document.getElementById("events");
-  if(!container) return;
+if(registerForm){
 
-  container.innerHTML = "";
+  registerForm.addEventListener("submit", async (e)=>{
 
-  data.forEach(e => {
-    container.innerHTML += `
-      <div class="event-card">
-        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
-        <div class="event-overlay">
-          <h3>${e.title}</h3>
-          <p>${e.location}</p>
-        </div>
-      </div>
-    `;
+    e.preventDefault();
+
+    const username =
+    document.getElementById("username").value;
+
+    const email =
+    document.getElementById("email").value;
+
+    const password =
+    document.getElementById("password").value;
+    const section =
+    document.getElementById("section").value;
+
+    const hobbies =
+    document.getElementById("hobbies").value;
+    try{
+
+      const res = await fetch(
+        "http://localhost:3000/api/register",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+            username,
+            email,
+            password,
+            section,
+            hobbies
+          })
+        }
+      );
+
+      const data = await res.json();
+
+      showToast(data.message);
+
+      if(data.userId){
+
+        registerForm.reset();
+
+        setTimeout(()=>{
+          window.location.href = "login.html";
+        },1000);
+
+      }
+
+    }catch(err){
+
+      console.error(err);
+      showToast("Server Error ❌");
+
+    }
+
   });
+
 }
+// ================= LOGIN =================
 
-// DASHBOARD EVENTS
-async function loadDashboardEvents() {
-  const res = await fetch('http://localhost:3000/events');
-  const data = await res.json();
+const loginForm =
+document.getElementById("loginForm");
 
-  const container = document.getElementById('eventsList');
-  container.innerHTML = '';
+if(loginForm){
 
-  data.forEach(e => {
-    container.innerHTML += `
-      <div class="event-card">
+  loginForm.addEventListener("submit", async (e)=>{
 
-        <div class="event-badge">${e.date}</div>
+    e.preventDefault();
 
-        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
+    const email =
+    document.getElementById("loginEmail").value;
 
-        <div class="event-overlay">
-          <h3>${e.title}</h3>
-          <p>${e.location}</p>
+    const password =
+    document.getElementById("loginPassword").value;
 
-          <button class="btn-small" onclick="deleteEvent(${e.id})">
-            🗑 Delete
-          </button>
+    try{
 
-          <button class="btn-small" onclick="editEvent(${e.id}, '${e.title}', '${e.description}', '${e.date}', '${e.location}')">
-            ✏️ Edit
-          </button>
+      const res = await fetch(
+        "http://localhost:3000/api/login",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+            email,
+            password
+          })
+        }
+      );
 
-        </div>
-      </div>
-    `;
+      const data = await res.json();
+
+      if(data.user){
+
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify(data.user)
+        );
+
+        localStorage.setItem(
+          "isAdmin",
+          data.user.role === "admin"
+          ? "true"
+          : "false"
+        );
+
+        showToast("Login Successful 🚀");
+
+        setTimeout(()=>{
+
+          if(data.user.role === "admin"){
+
+            window.location.href =
+            "dashboard.html";
+
+          }else{
+
+            window.location.href =
+            "home.html";
+
+          }
+
+        },1000);
+
+      }else{
+
+        showToast(data.message);
+
+      }
+
+    }catch(err){
+
+      console.log(err);
+      showToast("Server Error ❌");
+
+    }
+
   });
+
 }
+// ================= NAVBAR CONTROL =================
+const navLinks = document.querySelector(".nav-links");
 
-// ✏️ EDIT
-function editEvent(id, title, description, date, location) {
-  document.getElementById('title').value = title;
-  document.getElementById('description').value = description;
-  document.getElementById('date').value = date;
-  document.getElementById('location').value = location;
+const loggedInUser =
+JSON.parse(localStorage.getItem("loggedInUser"));
 
-  window.editingId = id;
-}
+const isAdmin =
+loggedInUser?.role === "admin";
 
-// ➕ ADD / UPDATE
-async function addEvent() {
-  const event = {
-    title: document.getElementById('title').value,
-    description: document.getElementById('description').value,
-    date: document.getElementById('date').value,
-    location: document.getElementById('location').value
-  };
+if(navLinks){
 
-  if (window.editingId) {
-    await fetch(`http://localhost:3000/events/${window.editingId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(event)
-    });
+  if(!loggedInUser){
 
-    window.editingId = null;
-  } else {
-    await fetch('http://localhost:3000/events', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(event)
-    });
+    navLinks.innerHTML = `
+      <li><a href="home.html">Home</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="join.html">Join</a></li>
+      <li><a href="login.html">Login</a></li>
+    `;
+
+  }else if(isAdmin){
+
+    navLinks.innerHTML = `
+      <li><a href="home.html">Home</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    `;
+
+  }else{
+
+    navLinks.innerHTML = `
+      <li><a href="home.html">Home</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    `;
+
   }
 
-  loadDashboardEvents();
+}
+//================= PAGE PROTECTION =================
+const currentPage =
+window.location.pathname.split("/").pop();
+
+const user =
+JSON.parse(localStorage.getItem("loggedInUser"));
+
+if(currentPage === "dashboard.html"){
+
+  if(!user){
+
+    window.location.href = "login.html";
+
+  }
+
+  if(user.role !== "admin"){
+
+    window.location.href = "home.html";
+
+  }
+
 }
 
-// DELETE
-async function deleteEvent(id) {
-  if (!confirm("Delete this event?")) return;
 
-  await fetch(`http://localhost:3000/events/${id}`, {
-    method: 'DELETE'
-  });
+// ================= LOGOUT =================
 
-  loadDashboardEvents();
+function logout(){
+
+  localStorage.removeItem("loggedInUser");
+
+  showToast("Logged out 👋");
+
+  setTimeout(()=>{
+
+    window.location.href = "login.html";
+
+  },500);
+
 }
 
-// REGISTER
-function register(){
-  const form = document.getElementById("registerForm");
-  if(!form) return;
+// ================= EVENTS ADMIN =================
 
-  form.addEventListener("submit", async (e)=>{
+const eventForm =
+document.getElementById("eventForm");
+
+if(eventForm){
+
+  eventForm.addEventListener("submit", async (e)=>{
+
     e.preventDefault();
 
-    const user = {
-      full_name: document.getElementById("full_name").value,
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
-    };
+    const title =
+    document.getElementById("eventTitle").value;
 
-    await fetch(API + "/register", {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify(user)
-    });
+    const description =
+    document.getElementById("eventDescription").value;
 
-    document.getElementById("message").innerText = "🚀 Registered!";
+    const category =
+    document.getElementById("eventCategory").value;
+
+    const location =
+    document.getElementById("eventLocation").value;
+
+    const date =
+    document.getElementById("eventDate").value;
+
+    const image =
+    document.getElementById("eventImage").value;
+
+    const time = "";
+
+    const res = await fetch(
+      "http://localhost:3000/api/events",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          title,
+          description,
+          category,
+          location,
+          date,
+          time,
+          image
+        })
+      }
+    );
+
+    const data =
+    await res.json();
+
+    showToast(data.message);
+
+    loadEvents();
+
+    eventForm.reset();
+
   });
+
 }
 
-//LOGING 
-function login(){
-  const form = document.getElementById("loginForm");
-  if(!form) return;
+// ================= LOAD EVENTS =================
 
-  form.addEventListener("submit", async (e)=>{
-    e.preventDefault();
+async function loadEvents(){
 
-    const user = {
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
-    };
+  const eventsList =
+  document.getElementById("eventsList");
 
-    const res = await fetch("http://localhost:3000/login", {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify(user)
+  if(!eventsList) return;
+
+  const res =
+  await fetch(
+    "http://localhost:3000/api/events"
+  );
+
+  const events =
+  await res.json();
+
+  let output = "";
+
+  events.forEach(event=>{
+
+    output += `
+
+    <div class="member-card">
+
+      <img
+      src="${event.image}"
+      style="
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:12px;
+      margin-bottom:15px;
+      ">
+
+      <h3>${event.title}</h3>
+
+      <p>${event.category}</p>
+
+      <p>${event.location}</p>
+
+      <p>${event.date}</p>
+
+      <button
+      onclick="deleteEvent(${event.id})"
+      class="delete-btn">
+      Delete
+      </button>
+
+    </div>
+
+    `;
+
+  });
+
+  eventsList.innerHTML = output;
+
+}
+
+loadEvents();
+
+// ================= DELETE EVENT =================
+
+async function deleteEvent(id){
+
+  const res =
+  await fetch(
+    `http://localhost:3000/api/events/${id}`,
+    {
+      method:"DELETE"
+    }
+  );
+
+  const data =
+  await res.json();
+
+  showToast(data.message);
+
+  loadEvents();
+
+}
+
+// ================= PUBLIC EVENTS =================
+
+async function loadPublicEvents(){
+
+  const publicEvents =
+  document.getElementById("publicEvents");
+
+  if(!publicEvents) return;
+
+  const res =
+  await fetch(
+    "http://localhost:3000/api/events"
+  );
+
+  const events =
+  await res.json();
+
+  let output = "";
+
+  events.forEach(event=>{
+
+    output += `
+
+    <div
+    class="event-card-pro reveal"
+    data-category="${event.category}">
+
+      <div class="event-image">
+
+        <img
+        src="${event.image}"
+        alt="${event.title}">
+
+        <span class="event-category">
+          ${event.category}
+        </span>
+
+      </div>
+
+      <div class="event-content">
+
+        <h3>${event.title}</h3>
+
+        <p>${event.description}</p>
+
+        <div class="event-meta">
+
+          <span>
+          <i class="fa-solid fa-location-dot"></i>
+          ${event.location}
+          </span>
+
+          <span>
+          <i class="fa-regular fa-calendar"></i>
+          ${event.date}
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    `;
+
+  });
+
+  publicEvents.innerHTML = output;
+
+}
+
+loadPublicEvents();
+//================= LOAD USERS =================
+function loadUsers(){
+
+  const usersList =
+  document.getElementById("usersList");
+
+  if(!usersList) return;
+
+  fetch("http://localhost:3000/api/users")
+
+  .then(res => res.json())
+
+  .then(users => {
+
+    const membersCount =
+    document.getElementById("membersCount");
+
+    if(membersCount){
+      membersCount.innerHTML = users.length;
+    }
+
+    let output = "";
+
+    users.forEach(user => {
+
+      output += `
+
+      <div class="member-card">
+
+        <h3>${user.username}</h3>
+
+        <p>Email : ${user.email}</p>
+
+        <p>Section : ${user.section || "-"}</p>
+
+        <p>Hobbies : ${user.hobbies || "-"}</p>
+
+        <button
+        class="delete-btn"
+        onclick="deleteUser(${user.id})">
+        Delete
+        </button>
+
+      </div>
+
+      `;
+
     });
 
-    const data = await res.json();
+    usersList.innerHTML = output;
 
-    // ✅ هنا check admin
-    if(data.role === 'admin'){
-      document.getElementById("message").innerText = "👑 Admin login";
-      window.location.href = "dashboard.html";
-    } else if(data.message === 'Login success ✅'){
-      document.getElementById("message").innerText = "✅ Login success";
-    } else {
-      document.getElementById("message").innerText = "❌ Login failed";
+  })
+
+  .catch(err => console.log(err));
+
+}
+
+loadUsers();
+//================= DELETE USER =================
+function deleteUser(id){
+
+  if(!confirm("Delete this user ?")) return;
+
+  fetch(`http://localhost:3000/api/users/${id}`,{
+    method:"DELETE"
+  })
+
+  .then(res => res.json())
+
+  .then(data => {
+
+    showToast(data.message);
+
+    loadUsers();
+
+  })
+
+  .catch(err => console.log(err));
+
+}
+// ================= REVEAL ANIMATION =================
+
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+  reveals.forEach(el => {
+    const windowHeight = window.innerHeight;
+    const elementTop = el.getBoundingClientRect().top;
+
+    if (elementTop < windowHeight - 100) {
+      el.classList.add("active");
     }
   });
 }
-// INIT
-document.addEventListener("DOMContentLoaded", ()=>{
-  loadEvents();
-  loadDashboardEvents();
-  register();
-  login();
-});
+
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll();

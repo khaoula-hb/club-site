@@ -1,41 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ECC Events</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>ECC Activities</title>
 
-<!-- CSS -->
-<link rel="stylesheet" href="../CSS/style.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="../CSS/style.css">
+
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ICONS -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav>
-  <h2>ECC</h2>
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+  <div class="logo">
+
+    <a href="home.html">
+      <img src="../logo.png" alt="ECC Logo">
+    </a>
+
+  </div>
 
   <ul class="nav-links">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Events</a></li>
-    <li><a href="#">Contact</a></li>
+
+    <!-- JS WILL CONTROL NAVBAR -->
+
   </ul>
+
+  <div class="nav-actions">
+
+    <button class="theme-toggle" id="themeBtn">
+
+      <i class="fa-solid fa-moon"></i>
+
+    </button>
+
+  </div>
+
 </nav>
 
-<!-- EVENTS SECTION -->
-<section style="margin-top:80px;">
-  <h2>Our Events</h2>
-  
-  <!-- IMPORTANT: class لازم تكون events-container -->
-  <div class="events-container" id="events"></div>
+<!-- ================= HERO ================= -->
+
+<section class="events-hero">
+
+  <div class="events-overlay"></div>
+
+  <div class="events-hero-content reveal">
+
+    <span class="events-badge">
+      Enter Capital Club
+    </span>
+
+    <h1>
+      ECC <span>Activities</span>
+    </h1>
+
+    <p>
+      Collaboration • Leadership • Innovation
+    </p>
+
+  </div>
+
 </section>
+
+<!-- ================= FILTER ================= -->
+
+<section class="events-filter">
+
+  <button class="filter-btn active" data-filter="all">
+    ALL
+  </button>
+
+  <button class="filter-btn" data-filter="collaboration">
+    COLLABORATIONS
+  </button>
+
+  <button class="filter-btn" data-filter="community">
+    COMMUNITY
+  </button>
+
+  <button class="filter-btn" data-filter="coming">
+    COMING SOON
+  </button>
+
+</section>
+
+<!-- ================= EVENTS GRID ================= -->
+
+<section class="events-page">
+
+  <div
+    class="events-grid"
+    id="publicEvents">
+
+  </div>
+
+</section>
+
+<!-- ================= VISION ================= -->
+
+<section class="vision-section">
+
+  <div class="vision-box reveal">
+
+    <span class="vision-tag">
+      OUR VISION
+    </span>
+
+    <h2>
+      Building The Future
+      <span>Student Community</span>
+    </h2>
+
+    <p>
+      Enter Capital Club aims to create a modern environment where ambitious
+      students collaborate, innovate and build impactful projects in technology,
+      entrepreneurship and leadership.
+    </p>
+
+    <a href="join.html" class="btn" style="margin-top:30px;">
+      Become A Member
+    </a>
+
+  </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+  <div class="footer-content">
+
+    <div>
+
+      <h2>
+        Enter Capital Club
+      </h2>
+
+      <p>
+        Innovation • Leadership • Technology
+      </p>
+
+    </div>
+
+    <div class="footer-socials">
+
+      <!-- FACEBOOK -->
+      <a href="https://www.facebook.com/share/1D1NWGvarJ/" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+
+      <!-- INSTAGRAM -->
+      <a href="https://www.instagram.com/entercapital.club?igsh=emU3YWJncncybGp0" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+
+      <!-- EMAIL -->
+      <a href="mailto:entercapital.club@gmail.com">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+      <!-- TIKTOK -->
+      <a href="https://www.tiktok.com/@entercapital.club?_r=1&_t=ZS-96nemoBePQq" target="_blank">
+       <i class="fab fa-tiktok"></i>
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="copyright">
+
+    © 2026 Enter Capital Club — All Rights Reserved.
+
+  </div>
+
+</footer>
+<script>
+
+async function loadEvents(){
+
+  try{
+
+    const res = await fetch(
+      "http://localhost:3000/api/events"
+    );
+
+    const events = await res.json();
+
+    const publicEvents =
+    document.getElementById("publicEvents");
+
+    let output = "";
+
+    events.forEach(event => {
+
+      output += `
+      <div class="event-card-pro">
+
+        <div class="event-image">
+          <img src="${event.image}" alt="${event.title}">
+        </div>
+
+        <div class="event-content">
+
+          <h3>${event.title}</h3>
+
+          <p>${event.description}</p>
+
+          <div class="event-meta">
+
+            <span>
+              <i class="fa-solid fa-location-dot"></i>
+              ${event.location}
+            </span>
+
+            <span>
+              <i class="fa-regular fa-calendar"></i>
+              ${event.date}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+      `;
+
+    });
+
+    publicEvents.innerHTML = output;
+
+  }catch(err){
+
+    console.log(err);
+
+  }
+
+}
+
+loadEvents();
+
+</script>
 
 <!-- JS -->
 <script src="../JS/app.js"></script>
 
 </body>
+
 </html>

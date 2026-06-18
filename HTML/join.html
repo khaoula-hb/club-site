@@ -1,51 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Join ECC</title>
+  <title>Join ECC</title>
 
-<!-- FONT -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../CSS/style.css">
 
-<!-- CSS -->
-<link rel="stylesheet" href="../CSS/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <nav>
-  <h2>ECC</h2>
+
+  <div class="logo">
+    <img src="../logo.png" alt="ECC Logo">
+  </div>
 
   <ul class="nav-links">
-    <li><a href="../HTML/home.html">Home</a></li>
-    <li><a href="#">Join</a></li>
+
+    <li>
+      <a href="home.html">Home</a>
+    </li>
+
+    <li id="eventsLink" style="display:none;">
+      <a href="events.html">Events</a>
+    </li>
+
+    <li id="joinLink">
+      <a href="join.html">Join</a>
+    </li>
+
+    <li id="loginLink">
+      <a href="login.html">Login</a>
+    </li>
+
+    <li id="dashboardLink" style="display:none;">
+      <a href="dashboard.html">Dashboard</a>
+    </li>
+
+    <li id="logoutLink" style="display:none;">
+      <button onclick="logout()" class="btn">
+        Logout
+      </button>
+    </li>
+
   </ul>
+
+  <div class="theme-toggle" id="themeBtn">
+    <i class="fa-solid fa-moon"></i>
+  </div>
+
 </nav>
 
-<!-- JOIN -->
-<div class="join-container" style="margin-top:80px;">
-  <div class="join-box">
+<!-- JOIN SECTION -->
+<section class="join-container">
 
-    <h2>Join Enter Capital Club 🚀</h2>
+  <div class="join-box reveal">
+
+    <div class="hero-badge">
+      <i class="fa-solid fa-sparkles"></i>
+      Become a Member
+    </div>
+
+    <h2>
+      Join <span>Enter Capital Club</span>
+    </h2>
+
+    <p class="join-text">
+      Start your journey with future developers,
+      entrepreneurs and innovators.
+    </p>
 
     <form id="registerForm">
 
-      <input type="text" id="full_name" placeholder="Full Name" required class="input">
-      <input type="email" id="email" placeholder="Email" required class="input">
-      <input type="password" id="password" placeholder="Password" required class="input">
+      <!-- USERNAME -->
+      <div class="input-box">
+        <i class="fa-solid fa-user"></i>
 
-      <button type="submit" class="btn">Register</button>
+        <input
+          type="text"
+          id="username"
+          class="input"
+          placeholder="Enter your username"
+          required
+        >
+      </div>
+
+      <!-- EMAIL -->
+      <div class="input-box">
+        <i class="fa-solid fa-envelope"></i>
+
+        <input
+          type="email"
+          id="email"
+          class="input"
+          placeholder="Enter your email"
+          required
+        >
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="input-box">
+        <i class="fa-solid fa-lock"></i>
+
+        <input
+          type="password"
+          id="password"
+          class="input"
+          placeholder="Create password"
+          required
+        >
+      </div>
+
+      <div class="input-box">
+
+        <select
+          id="section"
+          class="input"
+          required
+        >
+          <option value="">
+            Select Your Section
+          </option>
+
+          <option value="Computer Science">
+            Computer Science
+          </option>
+
+          <option value="Information Systems">
+            Information Systems
+          </option>
+
+          <option value="Mathematics">
+            Mathematics
+          </option>
+
+          <option value="Physics">
+            Physics
+          </option>
+
+          <option value="Economics">
+            Economics
+          </option>
+
+          <option value="Management">
+            Management
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- HOBBIES -->
+      <div class="input-box">
+        <i class="fa-solid fa-heart"></i>
+
+        <input
+          type="text"
+          id="hobbies"
+          class="input"
+          placeholder="Your Hobbies"
+          required
+        >
+      </div>
+
+      <!-- SUBMIT -->
+      <button type="submit" class="btn">
+        <i class="fa-solid fa-user-plus"></i>
+        Create Account
+      </button>
 
     </form>
 
-    <p id="message" style="margin-top:15px;"></p>
+    <div class="loader" id="loader"></div>
+
+    <p id="message"></p>
+
+    <div class="auth-link">
+      Already have an account ?
+      <a href="login.html">
+        Login now
+      </a>
+    </div>
 
   </div>
-</div>
 
+</section>
 <script src="../JS/app.js"></script>
 
 </body>

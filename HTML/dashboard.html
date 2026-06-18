@@ -1,62 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard - ECC</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- FONT -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>ECC Dashboard</title>
 
-<!-- CSS -->
-<link rel="stylesheet" href="../CSS/style.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="../CSS/style.css">
+
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ICONS -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<!-- ================= NAVBAR ================= -->
+
 <nav>
+
   <div class="logo">
-    <img src="../logo.png">
+    <a href="home.html">
+      <img src="../logo.png" alt="ECC Logo">
+    </a>
   </div>
 
   <ul class="nav-links">
-    <li><a href="../HTML/home.html">Home</a></li>
-    <li><a href="#">Dashboard</a></li>
+    <!-- JS WILL CONTROL NAVBAR -->
   </ul>
+
+  <div class="theme-toggle" id="themeBtn">
+    <i class="fa-solid fa-moon"></i>
+  </div>
+
 </nav>
 
-<!-- DASHBOARD -->
-<section class="dashboard" style="margin-top:100px;">
+<!-- ================= DASHBOARD ================= -->
 
-  <h2>Admin Dashboard 👑</h2>
+<section class="dashboard-section">
 
-  <!-- USERS -->
-  <h2>Users</h2>
-  <div id="usersList" class="about-cards reveal"></div>
+  <!-- HEADER -->
 
-  <!-- EVENTS -->
-  <h2>Events</h2>
-  <div id="eventsList" class="events-container "></div>
+  <div class="dashboard-header reveal">
 
-  <!-- ADD EVENT -->
-  <div class="card reveal" style="max-width:400px;margin:40px auto; text-align:center;">
+    <div class="hero-badge">
+      <i class="fa-solid fa-shield-halved"></i>
+      Admin Panel
+    </div>
 
-    <h2>Add Event</h2>
+    <h1>ECC Admin Dashboard 🚀</h1>
 
-    <input type="text" id="title" placeholder="Event Title" class="input">
-    <input type="date" id="date" class="input">
-    <input type="text" id="description" placeholder="Description" class="input">
-    <input type="text" id="location" placeholder="Location" class="input">
-
-    <button class="btn" onclick="addEvent()">Add Event</button>
+    <p>
+      Manage Members • Community • Activities
+    </p>
 
   </div>
 
-  <p id="message" style="text-align:center;margin-top:15px;"></p>
+  <!-- STATS -->
+
+  <div class="stats-container">
+
+    <div class="stat-card reveal">
+      <i class="fa-solid fa-users"></i>
+      <h2 id="membersCount">0</h2>
+      <p>Members</p>
+    </div>
+
+    <div class="stat-card reveal">
+      <i class="fa-solid fa-calendar"></i>
+      <h2 id="eventsCount">0</h2>
+      <p>Events</p>
+    </div>
+
+    <div class="stat-card reveal">
+      <i class="fa-solid fa-trophy"></i>
+      <h2>1</h2>
+      <p>Collaborations</p>
+    </div>
+
+  </div>
+
+  <!-- ================= MEMBERS ================= -->
+
+  <div class="members-section reveal">
+
+    <div class="section-title">
+      <h2>Registered Members</h2>
+      <p>Manage all ECC registered users</p>
+    </div>
+
+    <div class="search-box">
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+      type="text"
+      id="searchInput"
+      class="search-input"
+      placeholder="Search members..."
+      >
+
+    </div>
+
+    <div id="usersList" class="members-grid"></div>
+
+  </div>
+
+  <!-- ================= EVENTS MANAGEMENT ================= -->
+
+  <div class="events-admin reveal">
+
+    <div class="section-title">
+
+      <h2>
+        Manage Events
+      </h2>
+
+      <p>
+        Add, edit and delete club events
+      </p>
+
+    </div>
+
+    <form id="eventForm" class="event-form">
+
+      <input
+      type="text"
+      id="eventTitle"
+      placeholder="Event Title"
+      required>
+
+      <select id="eventCategory" required>
+
+        <option value="">
+          Select Category
+        </option>
+
+        <option value="collaboration">
+          Collaboration
+        </option>
+
+        <option value="community">
+          Community
+        </option>
+
+        <option value="coming">
+          Coming Soon
+        </option>
+
+      </select>
+
+      <input
+      type="text"
+      id="eventLocation"
+      placeholder="Location"
+      required>
+
+      <input
+      type="datetime-local"
+      id="eventDate"
+      required>
+
+      <input
+      type="url"
+      id="eventImage"
+      placeholder="Image URL"
+      required>
+
+      <textarea
+      id="eventDescription"
+      placeholder="Event Description"
+      rows="4"
+      required></textarea>
+
+      <button type="submit" class="btn">
+
+        <i class="fa-solid fa-plus"></i>
+        Add Event
+
+      </button>
+
+    </form>
+
+    <!-- EVENTS LIST -->
+
+    <div
+    id="eventsList"
+    class="members-grid">
+    </div>
+
+  </div>
 
 </section>
+
+<!-- ================= JS ================= -->
 
 <script src="../JS/app.js"></script>
 

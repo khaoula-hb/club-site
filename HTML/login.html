@@ -1,51 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Login ECC</title>
+  <title>ECC Login</title>
 
-<!-- FONT -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../CSS/style.css">
 
-<!-- CSS -->
-<link rel="stylesheet" href="../CSS/style.css">
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ICONS -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <nav>
-  <h2>ECC</h2>
+
+  <div class="logo">
+    <img src="../logo.png" alt="ECC Logo">
+  </div>
 
   <ul class="nav-links">
-    <li><a href="../HTML/home.html">Home</a></li>
-    <li><a href="../HTML/join.html">Join</a></li>
+
+    <li>
+      <a href="home.html">Home</a>
+    </li>
+
+    <!-- EVENTS غير بعد login -->
+    <li id="eventsLink" style="display:none;">
+      <a href="events.html">Events</a>
+    </li>
+
+    <!-- JOIN + LOGIN يختفيو بعد login -->
+    <li id="joinLink">
+      <a href="join.html">Join</a>
+    </li>
+
+    <li id="loginLink">
+      <a href="login.html">Login</a>
+    </li>
+
+    <!-- DASHBOARD غير admin -->
+    <li id="dashboardLink" style="display:none;">
+      <a href="dashboard.html">Dashboard</a>
+    </li>
+
+    <!-- LOGOUT -->
+    <li id="logoutLink" style="display:none;">
+      <button onclick="logout()" class="btn">
+        Logout
+      </button>
+    </li>
+
   </ul>
+
+  <div class="theme-toggle" id="themeBtn">
+    <i class="fa-solid fa-moon"></i>
+  </div>
+
 </nav>
 
-<!-- LOGIN -->
-<div class="login-container" style="margin-top:80px;">
-  <div class="login-box ">
+<!-- LOGIN SECTION -->
+<section class="login-container">
 
-    <h2>Login 🔐</h2>
+  <div class="login-box reveal">
+
+    <div class="hero-badge">
+      <i class="fa-solid fa-shield-halved"></i>
+      Secure Access
+    </div>
+
+    <h2>
+      Welcome <span>Back</span>
+    </h2>
+
+    <p class="join-text">
+      Login to access your dashboard,
+      events and ECC community.
+    </p>
 
     <form id="loginForm">
 
-      <input type="email" id="email" placeholder="Email" required class="input">
-      <input type="password" id="password" placeholder="Password" required class="input">
+      <div class="input-box">
 
-      <button type="submit" class="btn">Login</button>
+        <i class="fa-solid fa-envelope"></i>
+
+        <input
+          type="email"
+          id="loginEmail"
+          class="input"
+          placeholder="Enter your email"
+          required
+        >
+
+      </div>
+
+      <div class="input-box">
+
+        <i class="fa-solid fa-lock"></i>
+
+        <input
+          type="password"
+          id="loginPassword"
+          class="input"
+          placeholder="Enter your password"
+          required
+        >
+
+      </div>
+
+      <button type="submit" class="btn">
+
+        <i class="fa-solid fa-right-to-bracket"></i>
+        Login
+
+      </button>
 
     </form>
 
-    <p id="message" style="margin-top:15px;"></p>
+    <div class="loader" id="loader"></div>
+
+    <p id="message"></p>
+
+    <div class="auth-link">
+      Don't have an account ?
+      <a href="join.html">
+        Join now
+      </a>
+    </div>
 
   </div>
-</div>
 
+</section>
 <script src="../JS/app.js"></script>
 
 </body>
-</html> 
+</html>

@@ -1,131 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Enter Capital Club</title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="../CSS/style.css">
 
-  <!-- FONT -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- ICONS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<!-- ================= NAVBAR ================= -->
+
 <nav>
+
   <div class="logo">
-    <img src="logo.png" alt="ECC Logo">
+    <a href="home.html">
+     <img src="../logo.png" alt="ECC Logo">
+    </a>
   </div>
 
   <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="join.html">Join Us</a></li>
+
+    <li><a href="home.html">Home</a></li>
+
+    <!-- EVENTS يظهر غير بعد login -->
+    <li id="eventsLink" style="display:none;">
+      <a href="events.html">Events</a>
+    </li>
+
+    <!-- JOIN + LOGIN غير قبل login -->
+    <li id="joinLink">
+      <a href="join.html">Join</a>
+    </li>
+
+    <li id="loginLink">
+      <a href="login.html">Login</a>
+    </li>
+
+    <!-- DASHBOARD غير admin -->
+    <li id="dashboardLink" style="display:none;">
+      <a href="dashboard.html">Dashboard</a>
+    </li>
+
+    <!-- LOGOUT -->
+    <li id="logoutLink" style="display:none;">
+      <button onclick="logout()" class="btn">
+        Logout
+      </button>
+    </li>
+
   </ul>
 
-  <div class="theme-toggle" id="themeBtn">🌙</div>
+  <div class="theme-toggle" id="themeBtn">
+    <i class="fa-solid fa-moon"></i>
+  </div>
+
 </nav>
 
-<!-- HERO -->
-<section id="home" class="hero">
-  <div class="hero-content">
-    <h1>Welcome to <span>Enter Capital Club</span></h1>
-    <p>Where innovation, leadership and creativity meet 🚀</p>
-    <a href="#contact" class="btn">Join Us</a>
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+  <div class="hero-content reveal">
+
+    <div class="hero-badge">
+      <i class="fa-solid fa-sparkles"></i>
+      Future Innovation Club
+    </div>
+
+    <h1>
+      Welcome To
+      <span>Enter Capital Club</span>
+    </h1>
+
+    <h2 class="hero-subtitle">
+      Future Leaders • Entrepreneurs • Developers
+    </h2>
+
+    <p>
+      A modern student community focused on technology,
+      entrepreneurship, innovation and leadership.
+      Build projects, attend events and connect with ambitious minds.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="join.html" class="btn">
+        Join Us
+      </a>
+
+      <a href="events.html" class="btn-outline">
+        Explore Events
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="about">
-  <h2>About ECC</h2>
+<!-- ================= STATS ================= -->
 
-  <p class="about-desc">
-    Enter Capital Club is a student community focused on entrepreneurship,
-    innovation and technology. We build real projects and grow together.
-  </p>
+<section class="stats-section">
 
-  <div class="about-cards">
-    <div class="card">
-      <h3>Innovation</h3>
-      <p>We turn ideas into real projects.</p>
+  <div class="stats-container">
+
+    <div class="stat-card reveal">
+
+      <i class="fa-solid fa-users"></i>
+
+      <h3>500+</h3>
+
+      <p>Active Members</p>
+
     </div>
 
-    <div class="card">
-      <h3>Teamwork</h3>
-      <p>We believe in collaboration.</p>
+    <div class="stat-card reveal">
+
+      <i class="fa-solid fa-code"></i>
+
+      <h3>120+</h3>
+
+      <p>Projects Built</p>
+
     </div>
 
-    <div class="card">
-      <h3>Leadership</h3>
-      <p>We build future leaders.</p>
+    <div class="stat-card reveal">
+
+      <i class="fa-solid fa-calendar"></i>
+
+      <h3>80+</h3>
+
+      <p>Events Organized</p>
+
     </div>
+
   </div>
+
 </section>
 
- 
-<!-- EVENTS -->
-<section id="events" class="events">
-  <h2>Upcoming Events</h2>
+<!-- ================= ABOUT ================= -->
 
-  <div class="events-container">
+<section id="about">
 
-    <div class="event-card">
-      <h3>Hackathon 2025</h3>
-      <p>Build projects in 48h</p>
+  <div class="section-title reveal">
+
+    <h2>
+      About
+      <span>ECC</span>
+    </h2>
+
+    <p>
+      Learn more about our vision, mission and community.
+    </p>
+
+  </div>
+
+  <div class="about-grid">
+
+    <div class="about-text reveal">
+
+      <h3>
+        Scientific Club for Entrepreneurship & Capitalism 
+      </h3>
+
+      <!-- English -->
+
+      <p>
+
+        The Scientific Club for Entrepreneurship & Capitalism
+        is a youth-oriented club that aims to develop
+        leadership, creativity, and teamwork skills through
+        activities and workshops that help youth grow their
+        ideas and build a successful future.
+
+      </p>
+
+      <div class="about-mini-stats">
+
+        <div>
+          <h4>100+</h4>
+          <span>Members</span>
+        </div>
+
+        <div>
+          <h4>20+</h4>
+          <span>Activities</span>
+        </div>
+
+        <div>
+          <h4>10+</h4>
+          <span>Projects</span>
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="event-card">
-      <h3>Startup Workshop</h3>
-      <p>Learn how to launch startups</p>
-    </div>
+    <div class="about-image reveal">
 
-    <div class="event-card">
-      <h3>Networking Day</h3>
-      <p>Meet entrepreneurs</p>
+      <img
+      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop"
+      alt="ECC Team">
+
+      <div class="floating-box">
+
+        <i class="fa-solid fa-lightbulb"></i>
+
+        <h4>
+          Innovation
+        </h4>
+
+        <p>
+          Leadership • Creativity • Teamwork
+        </p>
+
+      </div>
+
     </div>
 
   </div>
+
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="contact">
-  <h2>Contact Us</h2>
-  <p>Let's build something amazing together 🚀</p>
+<section class="services-section">
 
-  <div class="contact-buttons">
-    <a href="mailto:entercapitalclub@gmail.com" class="btn">Email Us</a>
-    <a href="#" class="btn-outline">Join Telegram</a>
+  <div class="section-title reveal">
+
+    <h2>
+      Our
+      <span>Services</span>
+    </h2>
+
+    <p>
+      What ECC offers to its members.
+    </p>
+
   </div>
 
-  <div class="socials">
-    <i class="fab fa-facebook"></i>
-    <i class="fab fa-instagram"></i>
-    <i class="fab fa-telegram"></i>
+  <div class="services-grid">
+
+    <div class="service-card reveal">
+
+      <div class="service-icon">
+        <i class="fa-solid fa-code"></i>
+      </div>
+
+      <h3>Tech Workshops</h3>
+
+      <p>
+        Learn programming, web development,
+        AI and modern technologies.
+      </p>
+
+    </div>
+
+    <div class="service-card reveal">
+
+      <div class="service-icon">
+        <i class="fa-solid fa-lightbulb"></i>
+      </div>
+
+      <h3>Entrepreneurship</h3>
+
+      <p>
+        Transform ideas into innovative
+        business opportunities.
+      </p>
+
+    </div>
+
+    <div class="service-card reveal">
+
+      <div class="service-icon">
+        <i class="fa-solid fa-users"></i>
+      </div>
+
+      <h3>Networking</h3>
+
+      <p>
+        Meet ambitious students and
+        build valuable connections.
+      </p>
+
+    </div>
+
   </div>
+
+</section>
+<!-- ================= CONTACT ================= -->
+
+<section id="contact">
+
+  <div class="section-title reveal">
+
+    <h2>
+      Contact
+      <span>ECC</span>
+    </h2>
+
+    <p>
+      Stay connected with Enter Capital Club.
+    </p>
+
+  </div>
+
+  <div class="contact-container reveal">
+
+    <div class="socials">
+
+      <!-- FACEBOOK -->
+      <a href="https://www.facebook.com/share/1D1NWGvarJ/" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+
+      <!-- INSTAGRAM -->
+      <a href="https://www.instagram.com/entercapital.club?igsh=emU3YWJncncybGp0" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+
+      <!-- EMAIL -->
+      <a href="mailto:entercapital.club@gmail.com">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+      <!-- TIKTOK -->
+      <a href="https://www.tiktok.com/@entercapital.club?_r=1&_t=ZS-96nemoBePQq" target="_blank">
+       <i class="fab fa-tiktok"></i>
+      </a>
+    </div>
+
+    <br>
+
+    <p>
+      📧 ecc.club.contact@gmail.com
+    </p>
+
+  </div>
+
 </section>
 
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
+
 <footer>
-  <p>© 2026 Enter Capital Club. All rights reserved.</p>
+
+  <div class="footer-content">
+
+    <div class="footer-logo">
+
+      <img src="../logo.png" alt="ECC Logo">
+
+      <h3>
+        Enter Capital Club
+      </h3>
+
+    </div>
+
+    <p>
+      © 2026 Enter Capital Club — All Rights Reserved.
+    </p>
+
+  </div>
+
 </footer>
 
-<!-- JS -->
-<script>
-  const btn = document.getElementById("themeBtn");
+<!-- ================= JS ================= -->
 
-  btn.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    btn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
-  });
-</script>
+<script src="../JS/app.js"></script>
 
 </body>
 </html>

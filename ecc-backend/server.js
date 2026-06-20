@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
@@ -29,9 +30,15 @@ db.connect((err) => {
 
 // ================= REGISTER API =================
 
-app.post("/api/register", (req, res) => {
+app.post("/api/register", async (req, res) => {
 
-  const { username, email, password,section,hobbies } = req.body;
+  const {
+    username,
+    email,
+    password,
+    section,
+    hobbies
+  } = req.body;
 
   if (!username || !email || !password) {
     return res.status(400).json({
@@ -39,43 +46,63 @@ app.post("/api/register", (req, res) => {
     });
   }
 
-  // check email
-  db.query(
-    "SELECT * FROM users WHERE email = ?",
-    [email],
-    (err, result) => {
+  try {
 
-      if (err) return res.status(500).json(err);
+    const hashedPassword =
+      await bcrypt.hash(password, 10);
 
-      if (result.length > 0) {
-        return res.status(409).json({
-          message: "Email already exists"
-        });
-      }
+    db.query(
+      "SELECT * FROM users WHERE email = ?",
+      [email],
+      (err, result) => {
 
-      // insert user
-      db.query(
-        "INSERT INTO users (username, email, password,section,hobbies) VALUES (?, ?, ?, ?, ?)",
-        [username, email, password],
-        (err, data) => {
+        if (err)
+          return res.status(500).json(err);
 
-          if (err) return res.status(500).json(err);
-
-          return res.status(201).json({
-            message: "User registered successfully",
-            userId: data.insertId
+        if (result.length > 0) {
+          return res.status(409).json({
+            message: "Email already exists"
           });
-
         }
-      );
 
-    }
-  );
+        db.query(
+          "INSERT INTO users (username, email, password, section, hobbies) VALUES (?, ?, ?, ?, ?)",
+          [
+            username,
+            email,
+            hashedPassword,
+            section,
+            hobbies
+          ],
+          (err, data) => {
+
+            if (err)
+              return res.status(500).json(err);
+
+            return res.status(201).json({
+              message: "User registered successfully",
+              userId: data.insertId
+            });
+
+          }
+        );
+
+      }
+    );
+
+  } catch (error) {
+
+    return res.status(500).json({
+      message: "Server Error"
+    });
+
+  }
 
 });
 
 // ================= LOGIN API =================
-app.post("/api/login", (req, res) => {
+
+app.post("/api/login", async (req, res) => {
 
   const { email, password } = req.body;
 
@@ -85,39 +112,46 @@ app.post("/api/login", (req, res) => {
     });
   }
 
-  // check user
-  const sql = "SELECT * FROM users WHERE email = ?";
+  db.query(
+    "SELECT * FROM users WHERE email = ?",
+    [email],
+    async (err, result) => {
 
-  db.query(sql, [email], (err, result) => {
+      if (err)
+        return res.status(500).json(err);
 
-    if (err) return res.status(500).json(err);
-
-    if (result.length === 0) {
-      return res.status(404).json({
-        message: "User not found"
-      });
-    }
-
-    const user = result[0];
-
-    // check password
-    if (user.password !== password) {
-      return res.status(401).json({
-        message: "Wrong password"
-      });
-    }
-
-    return res.status(200).json({
-      message: "Login successful 🚀",
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        role: user.role
+      if (result.length === 0) {
+        return res.status(404).json({
+          message: "User not found"
+        });
       }
-    });
 
-  });
+      const user = result[0];
+
+      const validPassword =
+        await bcrypt.compare(
+          password,
+          user.password
+        );
+
+      if (!validPassword) {
+        return res.status(401).json({
+          message: "Wrong password"
+        });
+      }
+
+      return res.status(200).json({
+        message: "Login successful 🚀",
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          role: user.role
+        }
+      });
+
+    }
+  );
 
 });
 

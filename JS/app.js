@@ -41,7 +41,7 @@ if(registerForm){
       );
 
       const data = await res.json();
-
+      console.log(data);
       showToast(data.message);
 
       if(data.userId){
@@ -105,14 +105,10 @@ if(loginForm){
           "loggedInUser",
           JSON.stringify(data.user)
         );
-
         localStorage.setItem(
-          "isAdmin",
-          data.user.role === "admin"
-          ? "true"
-          : "false"
+          "token",
+          data.token
         );
-
         showToast("Login Successful 🚀");
 
         setTimeout(()=>{
@@ -541,3 +537,9 @@ function revealOnScroll() {
 
 window.addEventListener("scroll", revealOnScroll);
 revealOnScroll();
+
+function showToast(message){
+
+  alert(message);
+
+}

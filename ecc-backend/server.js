@@ -1,3 +1,5 @@
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const mysql = require("mysql2");
@@ -14,6 +16,7 @@ app.use(express.json());
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
@@ -56,9 +59,10 @@ app.post("/api/register", async (req, res) => {
       [email],
       (err, result) => {
 
-        if (err)
+        if (err){
+          console.log("MYSQL ERROR:", err);
           return res.status(500).json(err);
-
+        }
         if (result.length > 0) {
           return res.status(409).json({
             message: "Email already exists"
@@ -76,9 +80,10 @@ app.post("/api/register", async (req, res) => {
           ],
           (err, data) => {
 
-            if (err)
+            if (err){
+              console.log("MYSQL ERROR:", err);
               return res.status(500).json(err);
-
+            }  
             return res.status(201).json({
               message: "User registered successfully",
               userId: data.insertId
@@ -140,15 +145,27 @@ app.post("/api/login", async (req, res) => {
         });
       }
 
-      return res.status(200).json({
-        message: "Login successful 🚀",
-        user: {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          role: user.role
-        }
-      });
+     const token = jwt.sign(
+  {
+    id: user.id,
+    role: user.role
+  },
+  process.env.JWT_SECRET,
+  {
+    expiresIn: "7d"
+  }
+);
+
+return res.status(200).json({
+  message: "Login successful 🚀",
+  token,
+  user: {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    role: user.role
+  }
+});
 
     }
   );

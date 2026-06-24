@@ -556,3 +556,26 @@ if(menuBtn){
   });
 
 }
+const themeBtn = document.getElementById("themeBtn");
+
+// load saved theme
+window.addEventListener("load", () => {
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "light") {
+    document.body.classList.add("light");
+  }
+});
+
+// toggle theme
+if (themeBtn) {
+  themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+
+    if (document.body.classList.contains("light")) {
+      localStorage.setItem("theme", "light");
+    } else {
+      localStorage.setItem("theme", "dark");
+    }
+  });
+}

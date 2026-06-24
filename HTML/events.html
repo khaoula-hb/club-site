@@ -199,7 +199,7 @@ async function loadEvents(){
   try{
 
     const res = await fetch(
-      "http://localhost:3000/api/events"
+      "https://club-site-production.up.railway.app/api/events"
     );
 
     const events = await res.json();

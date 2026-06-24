@@ -353,7 +353,7 @@ async function deleteEvent(id){
 
   const res =
   await fetch(
-    `https://club-site-production.up.railway.app/api/events${id}`,
+    `https://club-site-production.up.railway.app/api/events/${id}`,
     {
       method:"DELETE"
     }
@@ -541,5 +541,18 @@ revealOnScroll();
 function showToast(message){
 
   alert(message);
+
+}
+const menuBtn = document.getElementById("menuBtn");
+
+if(menuBtn){
+
+  menuBtn.addEventListener("click", ()=>{
+
+    document
+      .querySelector(".nav-links")
+      .classList.toggle("active");
+
+  });
 
 }

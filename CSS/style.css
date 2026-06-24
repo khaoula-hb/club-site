@@ -2405,3 +2405,34 @@ body.light .member-card{
   background: #fff;
   border: 1px solid #ddd;
 }
+
+.menu-btn{
+  display:none;
+  font-size:24px;
+  cursor:pointer;
+  color:white;
+}
+
+@media(max-width:768px){
+
+  .menu-btn{
+    display:block;
+  }
+
+  .nav-links{
+    position:absolute;
+    top:90px;
+    left:0;
+    width:100%;
+    background:#071a2c;
+
+    flex-direction:column;
+    padding:20px;
+
+    display:none;
+  }
+
+  .nav-links.active{
+    display:flex;
+  }
+}

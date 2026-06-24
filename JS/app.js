@@ -24,7 +24,7 @@ if(registerForm){
     try{
 
       const res = await fetch(
-        "http://localhost:3000/api/register",
+        "https://club-site-production.up.railway.app/api/register",
         {
           method:"POST",
           headers:{
@@ -84,7 +84,7 @@ if(loginForm){
     try{
 
       const res = await fetch(
-        "http://localhost:3000/api/login",
+        "https://club-site-production.up.railway.app/api/login",
         {
           method:"POST",
           headers:{
@@ -255,7 +255,7 @@ if(eventForm){
     const time = "";
 
     const res = await fetch(
-      "http://localhost:3000/api/events",
+      "https://club-site-production.up.railway.app/api/events",
       {
         method:"POST",
         headers:{
@@ -297,7 +297,7 @@ async function loadEvents(){
 
   const res =
   await fetch(
-    "http://localhost:3000/api/events"
+    "https://club-site-production.up.railway.app/api/events"
   );
 
   const events =
@@ -353,7 +353,7 @@ async function deleteEvent(id){
 
   const res =
   await fetch(
-    `http://localhost:3000/api/events/${id}`,
+    `https://club-site-production.up.railway.app/api/events${id}`,
     {
       method:"DELETE"
     }
@@ -379,7 +379,7 @@ async function loadPublicEvents(){
 
   const res =
   await fetch(
-    "http://localhost:3000/api/events"
+    "https://club-site-production.up.railway.app/api/events"
   );
 
   const events =
@@ -448,7 +448,7 @@ function loadUsers(){
 
   if(!usersList) return;
 
-  fetch("http://localhost:3000/api/users")
+  fetch("https://club-site-production.up.railway.app/api/users")
 
   .then(res => res.json())
 
@@ -503,7 +503,7 @@ function deleteUser(id){
 
   if(!confirm("Delete this user ?")) return;
 
-  fetch(`http://localhost:3000/api/users/${id}`,{
+  fetch(`https://club-site-production.up.railway.app/api/users/${id}`,{
     method:"DELETE"
   })
 
